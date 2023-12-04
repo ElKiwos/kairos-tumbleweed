@@ -41,6 +41,12 @@ jobs:
           labels:
             kairos.version=${{ env.KAIROS_VERSION }}
             k3s.version=${{ env.K3S_VERSION }}
+            org.opencontainers.image.description="Kairos tumbleweed fork",
+            org.opencontainers.image.description="kairos-tumbleweed",
+            org.opencontainers.image.url="ghcr.io/elkiwos/kairos-tumbleweed"
+            org.opencontainers.image.repository="https://github.com/ElKiwos/kairos-tumbleweed"
+
+
           flavor: |
             latest=true
 
