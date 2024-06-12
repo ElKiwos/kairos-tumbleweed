@@ -15,12 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Read env file
-        id: read_env
-        uses: cardinalby/export-env-action@v2
-        with:
-          envFile: '.env'
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -39,8 +33,6 @@ jobs:
             type=semver,pattern={{major}}.{{minor}},value=${{ inputs.release-version }}
             type=semver,pattern={{major}},value=${{ inputs.release-version }}
           labels:
-            kairos.version=${{ env.KAIROS_VERSION }}
-            k3s.version=${{ env.K3S_VERSION }}
             org.opencontainers.image.description="Kairos tumbleweed fork",
             org.opencontainers.image.description="kairos-tumbleweed",
             org.opencontainers.image.url="ghcr.io/elkiwos/kairos-tumbleweed"
@@ -57,6 +49,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get commit tag
+        uses: little-core-labs/get-git-tag@v3.0.1
+        id: tagName
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -66,5 +62,4 @@ jobs:
           platforms: linux/arm64,linux/amd64
           file: "Dockerfile"
           build-args: |
-            KEA_VERSION=${{ env.KEA_VERSION }}
-            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+            VERSION=${{ steps.tagName.outputs.tag }}

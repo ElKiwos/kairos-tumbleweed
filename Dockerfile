@@ -1,6 +1,8 @@
 FROM quay.io/kairos/opensuse:tumbleweed-standard-arm64-rpi4-v3.0.0-k3sv1.29.0-k3s1
 
+ARG VERSION
+
+
 RUN zypper in -y nfs-client libsensors4 sensors sensord
 
-RUN export VERSION="tumbleweed-standard-arm64-rpi4-v3.0.0-k3sv1.29.0-k3s1"
-RUN envsubst '${VERSION}' </etc/os-release
+RUN echo "CUSTOM_VERSION=\"${VERSION}\"" >> /etc/os-release
