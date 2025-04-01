@@ -1,4 +1,4 @@
-FROM quay.io/kairos/opensuse:tumbleweed-standard-arm64-rpi4-v3.3.1-k3sv1.32.1-k3s1
+FROM quay.io/kairos/opensuse:tumbleweed-standard-arm64-rpi4-v3.3.4-k3s1.32.2
 
 ARG VERSION
 
